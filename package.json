@@ -6,16 +6,22 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "flowbite": "^1.6.5",
+    "flowbite-react": "^0.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "main": "public/main.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron ."
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +40,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.0.1",
+    "electron": "^24.1.1",
+    "electron-is-dev": "^2.0.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "postcss-cli": "^10.1.0",
+    "prettier": "^2.8.7",
+    "react-transition-group": "^4.4.5",
+    "tailwindcss": "^3.3.1",
+    "wait-on": "^7.0.1"
   }
 }
