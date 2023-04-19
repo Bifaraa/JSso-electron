@@ -22,7 +22,7 @@ const transitionStyles = {
 
 export default function Escritorio() {
   const [amdVisible, setAdmiVisible] = useState(false)
-  const [editorTxt, setEditorText] = useState(false)
+  const [editorTxtVisible, setEditorTextVisible] = useState(false)
   const nodeRef = useRef(null)
 
   return (
@@ -31,7 +31,6 @@ export default function Escritorio() {
         <Cabecera
           relojVisible={true}
           powerVisible={true}
-          administradorVisible={true}
           menuVisible={true}
           aplicacion={setAdmiVisible}
         />
@@ -63,9 +62,9 @@ export default function Escritorio() {
             </div>
           )}
         </Transition>
-        <EditorTxt visible={editorTxt} exit={setEditorText} />
+        <EditorTxt visible={editorTxtVisible} exit={setEditorTextVisible} />
         <div className='bg-slate-600/80 rounded-lg absolute bottom-0 left-1/2 translate-y-[-20%] translate-x-[-50%] p-5 shadow-[-.9em_.5em_1em_-.4em_rgba(0,0,0,0.6)]'>
-          <BarraApp editor={setEditorText} />
+          <BarraApp editor={setEditorTextVisible} />
         </div>
       </section>
     </main>

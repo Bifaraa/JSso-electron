@@ -8,7 +8,6 @@ export default function Cabecera({
   relojVisible,
   powerVisible,
   menuVisible,
-  administradorVisible,
   aplicacion
 }) {
   const classNamePower = `flex w-1/3 justify-${

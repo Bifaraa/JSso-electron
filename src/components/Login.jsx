@@ -2,7 +2,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cabecera from './barras-cabeceras/Cabecera'
-const { readFile } = window.require('fs').promises
+/* const { readFile } = window.require('fs').promises */
+import axios from 'axios'
 
 export default function Login() {
   /* TODO: hacer que si se mete la contraseña incorrecta
@@ -21,28 +22,29 @@ export default function Login() {
   /* TODO: hacer validar que no venga vacio el json y usar try cath para manejo de error y sacar a un arcihovo
   dentro de services */
 
-  const getUser = async () => {
+  useEffect(() => {
+    petiticionUsers()
+  }, [])
+
+  const petiticionUsers = async () => {
     try {
-      const data = await readFile('users.json')
-      console.log(data)
-      const miJson = JSON.parse(data)
-      console.log(miJson)
-      setUsuario(miJson.usuario)
-      setContraseña(miJson.contraseña)
-      console.log(usuario)
-      console.log(contraseña)
+      const response = await axios.get('http://localhost:4000/users', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
+      console.log(response.data)
+      setUsuario(response.data[0].username)
+      setContraseña(response.data[0].password)
     } catch (error) {
       console.error(error)
     }
   }
 
-  useEffect(() => {
-    getUser()
-  }, [])
-
   /* Al poderse logger redirecciona para el componente del escritorio */
 
-  const handleClick = () => {
+  const handleLogin = () => {
     const userInput = usuarioInput.current.value
     const passInput = constraseñaInput.current.value
     if (usuario === userInput && contraseña === passInput) {
@@ -102,7 +104,7 @@ export default function Login() {
             </div>
           </div>
           <button
-            onClick={handleClick}
+            onClick={handleLogin}
             className='bg-lime-500 w-[16em] h-[4em] mt-4 self-center rounded-lg shadow-[-.9em_.5em_1em_-.4em_rgba(0,0,0,0.6)]'
             type='submit'
           >

@@ -11,8 +11,8 @@ export default function Carga() {
   /* el estado del avance de la barra de carga */
   const [barCarga, setBarCarga] = useState(0)
   const navitage = useNavigate()
-  /* Apenas se carga el componente comienza a settear el estado de la barra de carga (barCarga) tomando un número aleatorio entre 1 y 0 y va avanzando. Usa el setInverval para repetir el setBarcarga cada .500s cuando el porcentaje sea 100 se usa navigate para ir a login */
 
+  /* Apenas se carga el componente comienza a settear el estado de la barra de carga (barCarga) tomando un número aleatorio entre 1 y 0 y va avanzando. Usa el setInverval para repetir el setBarcarga cada .500s cuando el porcentaje sea 100 se usa navigate para ir a login */
   useEffect(() => {
     const interval = setInterval(() => {
       setBarCarga((prevPorcentaje) => {

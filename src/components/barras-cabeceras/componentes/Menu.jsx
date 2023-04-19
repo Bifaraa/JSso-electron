@@ -26,7 +26,7 @@ export default function Menu({ visible, aplicacion }) {
 
   const nodeRef = useRef(null)
 
-  const handleClic = () => {
+  const handleMenu = () => {
     setEstaAbierto(!estaAbierto)
   }
 
@@ -39,7 +39,7 @@ export default function Menu({ visible, aplicacion }) {
 
   return visible ? (
     <div
-      onClick={handleClic}
+      onClick={handleMenu}
       className='p-2 relative hover:ring-2 hover:rounded-md hover:ring-neutral-700 hover:bg-neutral-800/30 transition ease-in-out delay-200'
     >
       <span className='font-IBM text-xl hover:cursor-pointer tracking-wider text-slate-400'>

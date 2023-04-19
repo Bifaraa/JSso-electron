@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 export default function Reloj({ visible }) {
+  /* TODO organizar renderizado condicional */
   const [horaCompleta, setHoraCompleta] = useState(new Date())
 
   useEffect(() => {
