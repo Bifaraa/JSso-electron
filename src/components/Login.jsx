@@ -1,17 +1,13 @@
 /* eslint-disable n/no-path-concat */
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cabecera from './barras-cabeceras/Cabecera'
-/* const { readFile } = window.require('fs').promises */
-import axios from 'axios'
+import { getAllUsers } from '../services/peticiones'
 
 export default function Login() {
   /* TODO: hacer que si se mete la contraseña incorrecta
   muestre error, subrayando el recuadro de rojo y diga contraseña incorrecta y funicone el boton de power */
-
-  /* Estados para luego comprar el valor  del usuario y la contraseña con la peticion */
-  const [usuario, setUsuario] = useState('')
-  const [contraseña, setContraseña] = useState('')
+  const [listUsers, setListUsers] = useState([])
 
   /* Referencia para apuntar al valor de los inputs */
   const usuarioInput = useRef()
@@ -19,39 +15,49 @@ export default function Login() {
 
   const navigate = useNavigate()
 
-  /* TODO: hacer validar que no venga vacio el json y usar try cath para manejo de error y sacar a un arcihovo
-  dentro de services */
-
   useEffect(() => {
-    petiticionUsers()
+    getAllUsers().then((res) => {
+      setListUsers(res)
+    })
   }, [])
 
-  const petiticionUsers = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/users', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      })
-      console.log(response.data)
-      setUsuario(response.data[0].username)
-      setContraseña(response.data[0].password)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  /* Al poderse logger redirecciona para el componente del escritorio */
-
   const handleLogin = () => {
-    const userInput = usuarioInput.current.value
-    const passInput = constraseñaInput.current.value
-    if (usuario === userInput && contraseña === passInput) {
-      navigate('/escritorio')
-    } else {
+    const user = usuarioInput.current.value
+    const pass = constraseñaInput.current.value
+    console.log(user, pass)
+    console.log(listUsers)
+    const usuarioEncontrado = listUsers.find(
+      (obj) => obj.username === user && obj.password === pass
+    )
+    if (!usuarioEncontrado) {
       alert('usuario y contraseña malos')
+      return
     }
+    console.log(usuarioEncontrado)
+    if (
+      usuarioEncontrado.username === user &&
+      usuarioEncontrado.password === pass
+    ) {
+      const userData = {
+        username: usuarioEncontrado.username,
+        id: usuarioEncontrado.id
+      }
+      localStorage.setItem('userData', JSON.stringify(userData))
+      navigate('/escritorio')
+    }
+    /*  getUserByUsernameAndPassword({ user, pass }).then((res) => {
+      console.log(res)
+      if (res.length > 0) {
+        const userData = {
+          username: res[0].username,
+          id: res[0].id
+        }
+        localStorage.setItem('userData', JSON.stringify(userData))
+        navigate('/escritorio')
+      } else {
+        alert('usuario y contraseña malos')
+      }
+    }) */
   }
 
   return (

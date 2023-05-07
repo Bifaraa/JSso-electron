@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 
@@ -20,20 +21,20 @@ export default function Reloj({ visible }) {
   const mes = horaCompleta.getMonth()
   const dia = horaCompleta.getDate()
 
-  if (visible) {
-    return (
-      <section className='flex p-2 text-slate-400 '>
-        <div className=''>
-          <span className='text-lg'>
-            {hora}:{minuto}:{segundo}
-          </span>
-        </div>
-        <div className='ml-5'>
-          <span className='text-lg'>
-            {año}-{mes}-{dia}
-          </span>
-        </div>
-      </section>
-    )
-  } else return <></>
+  return visible ? (
+    <section className='flex p-2 text-slate-400 '>
+      <div className=''>
+        <span className='text-lg'>
+          {hora}:{minuto}:{segundo}
+        </span>
+      </div>
+      <div className='ml-5'>
+        <span className='text-lg'>
+          {año}-{mes}-{dia}
+        </span>
+      </div>
+    </section>
+  ) : (
+    <></>
+  )
 }
