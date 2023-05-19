@@ -17,7 +17,7 @@ module.exports = {
     userModel.create(req.body, (err, rows) => {
       if (err) {
         console.error(err.message)
-        res.status(500).send('Error al crear usuario en la base de datos')
+        res.status(409).send('Error al crear usuario en la base de datos')
       } else {
         res.send(rows)
       }

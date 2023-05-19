@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getProcesos } from '../../../services/peticiones'
 
 export default function Procesos() {
+  const [listProcesos, setListProcesos] = useState([])
+
+  useEffect(() => {
+    getProcesos().then((res) => {
+      creadorDeProcesos(res)
+      console.log(listProcesos)
+      console.log(listProcesos[0].memoria)
+    })
+  }, [])
+
+  const creadorDeProcesos = (procesos) => {
+    setListProcesos(
+      procesos.map((proceso) => {
+        return {
+          id: proceso[0],
+          memoria: proceso[1],
+          nombre: proceso[2]
+        }
+      })
+    )
+  }
+
   return (
     <>
       <div className='flex flex-col text-white font-IBM'>
@@ -11,34 +34,25 @@ export default function Procesos() {
             <li>Servicios</li>
           </ul>
         </nav>
-        <table className='flex flex-col'>
-          <thead>
+        <table className='flex flex-col '>
+          <thead className=''>
             <tr className='flex justify-around space-y-10 items-baseline'>
               <th>Nombre</th>
               <th>ID</th>
               <th>% Memoria</th>
-              <th>Descripción</th>
             </tr>
           </thead>
-          <tbody className=''>
-            <tr className='flex justify-around space-y-10 items-baseline'>
-              <td>Nombre1</td>
-              <td>ID1</td>
-              <td>50%</td>
-              <td>Descripción1</td>
-            </tr>
-            <tr className='flex justify-around space-y-10 items-baseline'>
-              <td>Nombre2</td>
-              <td>ID2</td>
-              <td>75%</td>
-              <td>Descripción2</td>
-            </tr>
-            <tr className='flex justify-around space-y-10 items-baseline'>
-              <td>Nombre3</td>
-              <td>ID3</td>
-              <td>30%</td>
-              <td>Descripción3</td>
-            </tr>
+          <tbody className='overflow-y-auto h-[30vh]'>
+            {listProcesos.map((proceso) => (
+              <tr
+                key={proceso.id}
+                className='flex justify-around space-y-10 items-baseline'
+              >
+                <td>{proceso.nombre}</td>
+                <td>{proceso.id}</td>
+                <td>{proceso.memoria} %</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

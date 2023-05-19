@@ -27,18 +27,17 @@ export default function EditorTxt() {
   const [actualizar, setActualizar] = useState(false)
   const [id, setID] = useState(0)
   const [listBorrar, setListBorrar] = useState(false)
+  const userData = JSON.parse(localStorage.getItem('userData'))
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData')
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData)
+    if (userData) {
       console.log(userData)
       getAllNotes(userData.username).then((data) => setListNotas(data))
     }
   }, [])
 
   const handleSave = async () => {
-    if (notaUsuario === '' || notaUsuario === ' ') {
+    if (notaUsuario === '' || notaUsuario === ' ' || notaUsuario.length > 254) {
       console.log('no entre')
       return
     }
@@ -47,7 +46,9 @@ export default function EditorTxt() {
       return
     }
     if (notaNueva) {
-      createNote(notaUsuario).then((data) => console.log(data))
+      createNote(notaUsuario, userData.username).then((data) =>
+        console.log(data)
+      )
       return
     }
     console.log('no hice nada')

@@ -11,10 +11,24 @@ module.exports = {
     )
   },
   create: function (user, callback) {
-    db.run(
-      'INSERT INTO users (username, password) VALUES (?, ?)',
-      [user.username, user.password],
-      callback
+    db.get(
+      'SELECT id FROM users WHERE username = ?',
+      [user.username],
+      function (err, row) {
+        if (err) {
+          callback(err)
+        } else if (row) {
+          // Si se encuentra una fila con el mismo nombre de usuario, significa que ya existe
+          callback(new Error('El nombre de usuario ya existe'))
+        } else {
+          // Si no se encuentra ninguna fila, se inserta el nuevo usuario
+          db.run(
+            'INSERT INTO users (username, password) VALUES (?, ?)',
+            [user.username, user.password],
+            callback
+          )
+        }
+      }
     )
   },
   getAll: function (callback) {

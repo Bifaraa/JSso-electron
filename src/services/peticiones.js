@@ -7,7 +7,6 @@ export async function getAllUsers() {
       { withCredentials: true },
       { headers: { 'Content-Type': 'application/json' } }
     )
-    console.log(response)
     return response.data
   } catch (error) {
     console.error(error)
@@ -56,11 +55,11 @@ export async function putNote(id, notaUsuario) {
   }
 }
 
-export async function createNote(notaUsuario) {
+export async function createNote(notaUsuario, name) {
   try {
     const response = axios.post(
       'http://localhost:4000/txt',
-      { username: 'root', text: notaUsuario },
+      { username: name, text: notaUsuario },
       { withCredentials: true },
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     )
@@ -80,7 +79,11 @@ export async function createUser(user, pass) {
     )
     return response.data
   } catch (error) {
-    console.error(error)
+    if (error.response && error.response.status === 409) {
+      return 'El usuario ya existe'
+    } else {
+      throw error
+    }
   }
 }
 
@@ -88,6 +91,51 @@ export async function deleteNote(id) {
   try {
     const response = axios.delete(`http://localhost:4000/txt/${id}`)
     return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getProcesos() {
+  try {
+    const response = await axios.get(
+      'http://localhost:4000/procesos/Allprocesos'
+    )
+    console.log(response.data)
+    const listProcesos = response.data.map((item) => {
+      return item.split(' ')
+    })
+    return listProcesos
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getMemoria() {
+  try {
+    const response = await axios.get('http://localhost:4000/procesos/Memoria')
+    console.log(response.data)
+    return response.data.split(' ')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getSwap() {
+  try {
+    const response = await axios.get('http://localhost:4000/procesos/Swap')
+    console.log(response.data)
+    return response.data.split('i')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getDisco() {
+  try {
+    const response = await axios.get('http://localhost:4000/procesos/Disco')
+    console.log(response.data)
+    return response.data.split(' ')
   } catch (error) {
     console.error(error)
   }

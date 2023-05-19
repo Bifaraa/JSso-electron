@@ -22,9 +22,12 @@ function getProcesos() {
 const info = async () => {
   setInterval(async () => {
     const infoProcesos = await getProcesos()
-    console.log(`Cantidad de procesos: ${infoProcesos}`)
+    const listInfoProcesos = infoProcesos.split('\n')
+    console.log(`Cantidad de procesos: ${listInfoProcesos}`)
     return infoProcesos
   }, 2000)
 }
 
-export default { info }
+module.exports = {
+  info
+}

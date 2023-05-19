@@ -29,6 +29,9 @@ export default function ModalNewUser() {
   }
   const handleNewUser = () => {
     createUser(username, password).then((res) => {
+      if (res === 'El usuario ya existe') {
+        alert(res)
+      }
       console.log(res)
     })
   }
