@@ -8,6 +8,8 @@ import backgroundImage from '../assets/img/lion-2305938_1920.jpg'
 import EditorTxt from './Programas/EditorTxt/EditorTxt'
 import Consola from './CLI/Consola'
 import Ajustes from './barras-cabeceras/ajustes/Ajustes'
+import Visor from './Programas/visor-img/Visor'
+import Calculadora from './calculadora/Calculadora'
 
 const duration = 200
 const defaultStyle = {
@@ -90,8 +92,33 @@ export default function Escritorio() {
               </div>
             )}
           </Transition>
+          <Transition in={app.visorImgVisible} timeout={duration}>
+            {(state) => (
+              <div
+                className='w-full'
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state]
+                }}
+              >
+                <Visor />
+              </div>
+            )}
+          </Transition>
+          <Transition in={app.calculadora} timeout={duration}>
+            {(state) => (
+              <div
+                className='w-full'
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state]
+                }}
+              >
+                <Calculadora />
+              </div>
+            )}
+          </Transition>
         </div>
-
         <div className='bg-slate-600/80 rounded-lg absolute bottom-0 left-1/2 translate-y-[-20%] translate-x-[-50%] p-5 shadow-[-.9em_.5em_1em_-.4em_rgba(0,0,0,0.6)]'>
           <BarraApp />
         </div>

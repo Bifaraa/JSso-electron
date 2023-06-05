@@ -8,6 +8,8 @@ export function AppProvider({ children }) {
   const [editorTxtVisible, setEditorTxtVisible] = useState(false)
   const [consolaVisible, setConsolaVisible] = useState(false)
   const [ajustesVisible, setAjustesVisible] = useState(false)
+  const [visorImgVisible, setVisorImgVisible] = useState(false)
+  const [calculadora, setCalculadora] = useState(false)
 
   return (
     <AppContext.Provider
@@ -19,7 +21,11 @@ export function AppProvider({ children }) {
         consolaVisible,
         setConsolaVisible,
         ajustesVisible,
-        setAjustesVisible
+        setAjustesVisible,
+        visorImgVisible,
+        setVisorImgVisible,
+        calculadora,
+        setCalculadora
       }}
     >
       {children}

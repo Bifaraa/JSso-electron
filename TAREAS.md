@@ -14,3 +14,4 @@
 - ✅ Crear un modulo que maneje el servidor.
 - ✅ Crear condicionales para evitar que se guarde nota vacia, ni que supere el máximo de los caracteres que permite una variable str en la base de datos
 - ✅ Crear distintivo en el adminitrador de tareas en procesos y memoria
+- 🚫 Crear visor de imagenes y reproductor de música
